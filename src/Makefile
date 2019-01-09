@@ -82,6 +82,7 @@ endif
 # Include paths to dependencies
 FINAL_CFLAGS+= -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src
 
+
 ifeq ($(MALLOC),tcmalloc)
 	FINAL_CFLAGS+= -DUSE_TCMALLOC
 	FINAL_LIBS+= -ltcmalloc
@@ -107,6 +108,14 @@ else
 	FINAL_LIBS+= ../deps/nvml/src/nondebug/libpmemobj.a ../deps/nvml/src/nondebug/libpmem.a
 endif
 endif
+
+#### ADDED_BY_PMTEST ####
+PMTEST_DIR := /home/liush/Desktop/pmtest
+PMTEST_INCS := -I$(PMTEST_DIR)/include
+PMTEST_LIBS := -L$(PMTEST_DIR)/build/libs -lpmtest -Wl,-rpath,$(PMTEST_DIR)/build/libs
+FINAL_CFLAGS += $(PMTEST_INCS)
+FINAL_LIBS += $(PMTEST_LIBS)
+#### END_ADDED_BY_PMTEST ####
 
 REDIS_CC=$(QUIET_CC)$(CC) $(FINAL_CFLAGS)
 REDIS_LD=$(QUIET_LINK)$(CC) $(FINAL_LDFLAGS)

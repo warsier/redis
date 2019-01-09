@@ -15,7 +15,7 @@ if [[ $1 == '-h' ]]
 then
 	$bin -h
 else
-	$bin ./redis.conf &
+	$bin ./redis.conf 
 fi
 
 
